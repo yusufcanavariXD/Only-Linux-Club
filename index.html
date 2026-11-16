@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Linux Club</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
 </head>
 <body>
     <main class="container">
-        <!-- Loading state -->
         <div id="status-box" class="card">
             <p class="prompt">$ verifying kernel...</p>
         </div>
 
-        <!-- LINUX WELCOME SCREEN -->
         <div id="linux-welcome" class="card hidden">
             <div class="top-bar">
                 <div class="dots">
@@ -22,28 +20,27 @@
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
                 </div>
-                <span class="terminal-title"><span id="bar-user">member</span>@linux-club: ~</span>
+                <span class="terminal-title" id="header-prompt">member@linux-club: ~</span>
                 <span class="badge">ACCESS GRANTED</span>
             </div>
 
             <h1>WELCOME TO THE LINUX CLUB</h1>
 
-            <!-- USERNAME / IDENTITY BAR -->
             <div class="profile-bar">
-                <div class="profile-current">
-                    <span class="label">Logged in as:</span>
-                    <strong id="display-username">penguin_0000</strong>
+                <div class="profile-label">
+                    <span>Handle:</span>
+                    <strong id="current-username-display">penguin_0000</strong>
                 </div>
                 <form id="username-form" class="username-form">
                     <input type="text" id="username-input" maxlength="20" placeholder="New username..." aria-label="Change username">
-                    <button type="submit" class="btn-accent">Set Handle</button>
+                    <button type="submit" class="btn-small">Set Name</button>
                 </form>
             </div>
+            <div id="profile-warning" class="warning-banner hidden"></div>
 
-            <!-- NEOFETCH + INTERACTIVE TERMINAL WINDOW -->
             <div class="neofetch-window" id="terminal-window">
                 <div class="command-line">
-                    <span class="prompt-user"><span class="dyn-user">member</span>@linux-club</span>:<span class="prompt-path">~</span>$ neofetch
+                    <span class="prompt-user" id="nf-prompt-user">member@linux-club</span>:<span class="prompt-path">~</span>$ neofetch
                 </div>
                 <div class="neofetch-grid">
                     <pre id="ascii-art" class="ascii-art"></pre>
@@ -63,36 +60,40 @@
                     </div>
                 </div>
 
-                <!-- INTERACTIVE SHELL OUTPUT & INPUT -->
                 <div class="shell-divider"></div>
                 <div id="terminal-output" class="terminal-output">
-                    <div class="sys-msg">Type <span class="cmd-hint">help</span> for commands (try <span class="cmd-hint">nick yourname</span> or <span class="cmd-hint">say hello!</span>).</div>
+                    <div class="sys-msg">Type <span class="cmd-hint">help</span> for commands, <span class="cmd-hint">nick &lt;name&gt;</span> to set handle, or <span class="cmd-hint">say &lt;msg&gt;</span> to post in global chat.</div>
                 </div>
                 <div class="terminal-input-line">
-                    <span class="prompt-user"><span class="dyn-user">member</span>@linux-club</span>:<span class="prompt-path">~</span>$&nbsp;
-                    <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus aria-label="Terminal command input">
+                    <span class="prompt-user" id="shell-prompt-user">member@linux-club</span>:<span class="prompt-path">~</span>$&nbsp;
+                    <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" aria-label="Terminal command input">
                 </div>
             </div>
 
-            <!-- GLOBAL LINUX-ONLY CHAT -->
             <div class="chat-section">
                 <div class="chat-header">
-                    <div>
+                    <div class="chat-title-group">
                         <h2>#linux-club Global Chat</h2>
-                        <span class="chat-subtitle">Verified penguins only &bull; Safe-link &amp; chat guard active</span>
+                        <span class="online-pill">Penguins Online: <strong id="online-count">1</strong></span>
                     </div>
-                    <span id="chat-status" class="chat-badge">Connecting P2P...</span>
+                    <span id="chat-status" class="chat-status connecting">● Connecting...</span>
+                </div>
+                <div class="bot-hint-bar">
+                    Bot commands: <code>!help</code> <code>!tip</code> <code>!joke</code> <code>!distro</code> <code>!ping</code> or mention <code>@tux</code>
                 </div>
                 <div id="chat-messages" class="chat-messages">
-                    <div class="chat-sys">Joining #linux-club decentralized relay...</div>
+                    <div class="chat-sys">Connecting to live Linux relay...</div>
                 </div>
+                <div id="chat-warning" class="warning-banner hidden"></div>
                 <form id="chat-form" class="chat-form">
-                    <input type="text" id="chat-input" maxlength="240" placeholder="Send a message to Linux users worldwide..." autocomplete="off" aria-label="Global chat message">
-                    <button type="submit" class="btn-accent">Send</button>
+                    <input type="text" id="chat-input" maxlength="280" placeholder="Message #linux-club or try !tip..." autocomplete="off" aria-label="Global chat message">
+                    <button type="submit" class="btn-send">Send</button>
                 </form>
+                <div class="chat-rules-hint">
+                    Safe links only (github.com, github.io, kernel.org, linuxmint.com, ubuntu.com, archlinux.org). Bad words &amp; scam links are blocked.
+                </div>
             </div>
 
-            <!-- DISTRO DETECTOR & SELECTOR -->
             <div class="detector-section">
                 <h2>Distro Detector</h2>
                 <p id="detector-status" class="detector-text">Scanning User-Agent for distro signature...</p>
@@ -101,13 +102,11 @@
             </div>
         </div>
 
-        <!-- ACCESS DENIED SCREEN -->
         <div id="access-denied" class="card denied hidden">
             <div class="badge error">ACCESS DENIED</div>
             <h1 id="denied-title">Unsupported OS Detected</h1>
             <p id="denied-message">Sorry, this club is strictly for penguins.</p>
 
-            <!-- Windows 5-second redirect box -->
             <div id="redirect-box" class="redirect-box hidden">
                 <p>Evicting Windows user to <strong>ubuntu.com</strong> in <span id="countdown">5</span>s...</p>
                 <div class="progress-track">
