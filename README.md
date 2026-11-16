@@ -2,6 +2,7 @@
 https://yusufcanavarixd.github.io/Only-Linux-Club/
 
 okay slow steps it is.
+
 <img width="760" height="200" alt="resim" src="https://github.com/user-attachments/assets/50416ba7-55e7-4aa3-943c-2a1f2d59d50b" />
 And an ScreenShot Of The Distro Detector! if you Wanted It! ill add more fetaures later.                                          
 
