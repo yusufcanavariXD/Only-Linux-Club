@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Linux Club</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+</head>
+<body>
+    <main class="container">
+        <!-- Loading state -->
+        <div id="status-box" class="card">
+            <p class="prompt">$ verifying kernel...</p>
+        </div>
+
+        <!-- LINUX WELCOME SCREEN -->
+        <div id="linux-welcome" class="card hidden">
+            <div class="top-bar">
+                <div class="dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <span class="terminal-title"><span id="bar-user">member</span>@linux-club: ~</span>
+                <span class="badge">ACCESS GRANTED</span>
+            </div>
+
+            <h1>WELCOME TO THE LINUX CLUB</h1>
+
+            <!-- USERNAME / IDENTITY BAR -->
+            <div class="profile-bar">
+                <div class="profile-current">
+                    <span class="label">Logged in as:</span>
+                    <strong id="display-username">penguin_0000</strong>
+                </div>
+                <form id="username-form" class="username-form">
+                    <input type="text" id="username-input" maxlength="20" placeholder="New username..." aria-label="Change username">
+                    <button type="submit" class="btn-accent">Set Handle</button>
+                </form>
+            </div>
+
+            <!-- NEOFETCH + INTERACTIVE TERMINAL WINDOW -->
+            <div class="neofetch-window" id="terminal-window">
+                <div class="command-line">
+                    <span class="prompt-user"><span class="dyn-user">member</span>@linux-club</span>:<span class="prompt-path">~</span>$ neofetch
+                </div>
+                <div class="neofetch-grid">
+                    <pre id="ascii-art" class="ascii-art"></pre>
+                    <div class="sys-info">
+                        <div class="info-header"><span id="nf-user">member</span>@<span id="nf-host">linux-club</span></div>
+                        <div class="info-divider">-------------------</div>
+                        <div><span class="label">OS:</span> <span id="nf-os">Linux x86_64</span></div>
+                        <div><span class="label">Kernel:</span> <span id="nf-kernel">6.x-generic (Verified)</span></div>
+                        <div><span class="label">Shell:</span> bash / zsh</div>
+                        <div><span class="label">Resolution:</span> <span id="nf-res">1920x1080</span></div>
+                        <div><span class="label">Browser:</span> <span id="nf-browser">Firefox / Chromium</span></div>
+                        <div><span class="label">CPU Threads:</span> <span id="nf-cores">8</span></div>
+                        <div class="color-blocks">
+                            <span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span>
+                            <span class="c5"></span><span class="c6"></span><span class="c7"></span><span class="c8"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INTERACTIVE SHELL OUTPUT & INPUT -->
+                <div class="shell-divider"></div>
+                <div id="terminal-output" class="terminal-output">
+                    <div class="sys-msg">Type <span class="cmd-hint">help</span> for commands (try <span class="cmd-hint">nick yourname</span> or <span class="cmd-hint">say hello!</span>).</div>
+                </div>
+                <div class="terminal-input-line">
+                    <span class="prompt-user"><span class="dyn-user">member</span>@linux-club</span>:<span class="prompt-path">~</span>$&nbsp;
+                    <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus aria-label="Terminal command input">
+                </div>
+            </div>
+
+            <!-- GLOBAL LINUX-ONLY CHAT -->
+            <div class="chat-section">
+                <div class="chat-header">
+                    <div>
+                        <h2>#linux-club Global Chat</h2>
+                        <span class="chat-subtitle">Verified penguins only &bull; Safe-link &amp; chat guard active</span>
+                    </div>
+                    <span id="chat-status" class="chat-badge">Connecting P2P...</span>
+                </div>
+                <div id="chat-messages" class="chat-messages">
+                    <div class="chat-sys">Joining #linux-club decentralized relay...</div>
+                </div>
+                <form id="chat-form" class="chat-form">
+                    <input type="text" id="chat-input" maxlength="240" placeholder="Send a message to Linux users worldwide..." autocomplete="off" aria-label="Global chat message">
+                    <button type="submit" class="btn-accent">Send</button>
+                </form>
+            </div>
+
+            <!-- DISTRO DETECTOR & SELECTOR -->
+            <div class="detector-section">
+                <h2>Distro Detector</h2>
+                <p id="detector-status" class="detector-text">Scanning User-Agent for distro signature...</p>
+                <p class="sub-hint">Browser hid your specific distro? Pick yours below (or run <code>distro mint</code> in the terminal):</p>
+                <div id="distro-buttons" class="distro-grid"></div>
+            </div>
+        </div>
+
+        <!-- ACCESS DENIED SCREEN -->
+        <div id="access-denied" class="card denied hidden">
+            <div class="badge error">ACCESS DENIED</div>
+            <h1 id="denied-title">Unsupported OS Detected</h1>
+            <p id="denied-message">Sorry, this club is strictly for penguins.</p>
+
+            <!-- Windows 5-second redirect box -->
+            <div id="redirect-box" class="redirect-box hidden">
+                <p>Evicting Windows user to <strong>ubuntu.com</strong> in <span id="countdown">5</span>s...</p>
+                <div class="progress-track">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="debug-box">
+                <span>Your Browser Said:</span>
+                <code id="other-ua"></code>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
