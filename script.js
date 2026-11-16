@@ -1,285 +1,358 @@
-const BT = String.fromCharCode(96);
+const CREATOR_SECRET_HASH = "e5a1f9c8c2a6f7f1a9c18a35a53f64f78d3f22b4e527c85c5132989e8c543997";
 
 const DISTROS = {
     generic: {
         name: "Generic Linux",
         color: "#3fb950",
-        ascii: "       .---.       \n      /     \\      \n      \\.@-@./      \n      /" + BT + "\\_/" + BT + "\\      \n     //  _  \\\\     \n    | \\     )|_    \n   /" + BT + "\\_" + BT + ">  <_/ \\   \n   \\__/'---'\\__/   "
+        ascii: [
+            "       .---.       ",
+            "      /     \\      ",
+            "      \\.@-@./      ",
+            "      /`\\_/`\\      ",
+            "     //  _  \\\\     ",
+            "    | \\     )|_    ",
+            "   /`\\_`>  <_/ \\   ",
+            "   \\__/'---'\\__/   "
+        ].join("\n")
     },
     mint: {
         name: "Linux Mint",
         color: "#87cf3e",
-        ascii: " ___________       \n|_          \\      \n  | | _____ |      \n  | | | | | |      \n  | | | | | |      \n  | \\_____/ |      \n  \\_________/      "
+        ascii: [
+            " ___________       ",
+            "|_          \\      ",
+            "  | | _____ |      ",
+            "  | | | | | |      ",
+            "  | | | | | |      ",
+            "  | \\_____/ |      ",
+            "  \\_________/      "
+        ].join("\n")
     },
     arch: {
         name: "Arch Linux",
         color: "#1793d1",
-        ascii: "        /\\         \n       /  \\        \n      /\\   \\       \n     /      \\      \n    /   ,,   \\     \n   /   |  |  -\\    \n  /_-''    ''-_\\   "
+        ascii: [
+            "        /\\         ",
+            "       /  \\        ",
+            "      /\\   \\       ",
+            "     /      \\      ",
+            "    /   ,,   \\     ",
+            "   /   |  |  -\\    ",
+            "  /_-''    ''-_\\   "
+        ].join("\n")
     },
     ubuntu: {
         name: "Ubuntu",
         color: "#e95420",
-        ascii: "         _         \n     ---(_)        \n _/  ---  \\        \n(_) |   |          \n  \\  --- _/        \n     ---(_)        "
+        ascii: [
+            "         _         ",
+            "     ---(_)        ",
+            " _/  ---  \\        ",
+            "(_) |   |          ",
+            "  \\  --- _/        ",
+            "     ---(_)        "
+        ].join("\n")
     },
     debian: {
         name: "Debian",
         color: "#d70a53",
-        ascii: "     _,met$$$$$gg. \n  ,g$$$$$$$$$$$$$$P\n,g$$P\"     \"\"\"Y$$.\"\n$$P'              " + BT + "\n'$$       ,ggs.    \n " + BT + "d$'     ,$P\"'    \n  $$P      d$'     \n  $$:      $$.     \n   " + BT + "Yb.            "
+        ascii: [
+            "     _,met$$$$$gg. ",
+            "  ,g$$$$$$$$$$$$$$P",
+            ",g$$P\"     \"\"\"Y$$.\"",
+            "$$P'              `",
+            "'$$       ,ggs.    ",
+            " `d$'     ,$P\"'    ",
+            "  $$P      d$'     ",
+            "  $$:      $$.     ",
+            "   `Yb.            "
+        ].join("\n")
     },
     fedora: {
         name: "Fedora",
         color: "#51a2da",
-        ascii: "      ,'''''.      \n     |   ,.  |     \n     |  |  '_'     \n ,....|  |..       \n.'  ,_;  ,..;      \n|  |   |  |        \n|  ',_,'  |        \n '.     ,'         "
+        ascii: [
+            "      ,'''''.      ",
+            "     |   ,.  |     ",
+            "     |  |  '_'     ",
+            " ,....|  |..       ",
+            ".'  ,_;  ,..;      ",
+            "|  |   |  |        ",
+            "|  ',_,'  |        ",
+            " '.     ,'         "
+        ].join("\n")
     },
     manjaro: {
         name: "Manjaro",
         color: "#35bf5c",
-        ascii: "||||||||| ||||     \n||||||||| ||||     \n||||      ||||     \n|||| |||| ||||     \n|||| |||| ||||     \n|||| |||| ||||     \n|||| |||| ||||     "
+        ascii: [
+            "||||||||| ||||     ",
+            "||||||||| ||||     ",
+            "||||      ||||     ",
+            "|||| |||| ||||     ",
+            "|||| |||| ||||     ",
+            "|||| |||| ||||     ",
+            "|||| |||| ||||     "
+        ].join("\n")
     },
     opensuse: {
         name: "openSUSE",
         color: "#73ba25",
-        ascii: "   .----------.    \n  /   ______   \\   \n |   /  __  \\   |  \n |  |  (o )  |  |  \n |   \\______/   |  \n  \\____________/   "
+        ascii: [
+            "   .----------.    ",
+            "  /   ______   \\   ",
+            " |   /  __  \\   |  ",
+            " |  |  (o )  |  |  ",
+            " |   \\______/   |  ",
+            "  \\____________/   "
+        ].join("\n")
     },
     popos: {
         name: "Pop!_OS",
         color: "#48b9c7",
-        ascii: " ______            \n \\   _ \\        __ \n  \\ \\ \\ \\      / / \n   \\ \\_\\ \\    / /  \n    \\  ___\\  /_/   \n     \\ \\    _      \n      \\_\\  (_)     "
+        ascii: [
+            " ______            ",
+            " \\   _ \\        __ ",
+            "  \\ \\ \\ \\      / / ",
+            "   \\ \\_\\ \\    / /  ",
+            "    \\  ___\\  /_/   ",
+            "     \\ \\    _      ",
+            "      \\_\\  (_)     "
+        ].join("\n")
     },
     kali: {
         name: "Kali Linux",
         color: "#367bf0",
-        ascii: "  ,.....           \n   ----..          \n       " + BT + "-.         \n      .--'-.       \n    .'      " + BT + "-.    \n   /   /\\      \\   \n  '   '  '      " + BT + "  "
+        ascii: [
+            "  ,.....           ",
+            "   ----..          ",
+            "       `-.         ",
+            "      .--'-.       ",
+            "    .'      `-.    ",
+            "   /   /\\      \\   ",
+            "  '   '  '      `  "
+        ].join("\n")
     },
     gentoo: {
         name: "Gentoo",
         color: "#9988cc",
-        ascii: "  .-virgilio-.     \n /   .----.   \\    \n|   /  ()  \\   |   \n \\  '------'  /    \n  '-.______.-'     "
+        ascii: [
+            "  .-virgilio-.     ",
+            " /   .----.   \\    ",
+            "|   /  ()  \\   |   ",
+            " \\  '------'  /    ",
+            "  '-.______.-'     "
+        ].join("\n")
     },
     nixos: {
         name: "NixOS",
         color: "#7ebae4",
-        ascii: "    \\\\  \\\\ //      \n   ==\\\\__\\\\/ //    \n     //   \\\\//     \n  ==//     //==    \n   //\\\\___//       \n  // /\\\\  \\\\==     \n    // \\\\  \\\\      "
+        ascii: [
+            "    \\\\  \\\\ //      ",
+            "   ==\\\\__\\\\/ //    ",
+            "     //   \\\\//     ",
+            "  ==//     //==    ",
+            "   //\\\\___//       ",
+            "  // /\\\\  \\\\==     ",
+            "    // \\\\  \\\\      "
+        ].join("\n")
     }
 };
 
-const BLOCKED_WORDS = [
-    "fuck", "shit", "bitch", "asshole", "cunt", "dick", "pussy",
-    "nigger", "nigga", "faggot", "retard", "whore", "slut",
-    "kys", "kill yourself", "freerobux", "free robux", "free nitro",
-    "steam gift scam", "crypto giveaway", "double your btc"
+const SAFE_DOMAINS = [
+    "github.com", "github.io", "gitlab.com", "kernel.org",
+    "linuxmint.com", "ubuntu.com", "debian.org", "archlinux.org",
+    "fedoraproject.org", "opensuse.org", "gnu.org", "nixos.org"
 ];
 
-const ALLOWED_DOMAINS = [
-    "github.com",
-    "github.io",
-    "gitlab.com",
-    "codeberg.org",
-    "kernel.org",
-    "linux.org",
-    "linuxmint.com",
-    "ubuntu.com",
-    "archlinux.org",
-    "debian.org",
-    "fedoraproject.org",
-    "opensuse.org",
-    "gentoo.org",
-    "nixos.org",
-    "gnu.org",
-    "fsf.org",
-    "wikipedia.org",
-    "stackoverflow.com",
-    "stackexchange.com",
-    "askubuntu.com"
+const BAD_WORDS = [
+    "fuck", "shit", "bitch", "asshole", "bastard", "dick", "pussy",
+    "nigger", "nigga", "faggot", "retard", "slut", "whore", "cunt",
+    "free robux", "freerobux", "free nitro", "freenitro", "claim prize"
 ];
 
 const TUX_TIPS = [
-    "Tip: Use 'Ctrl + R' in your terminal to search your past bash commands interactively!",
-    "Tip: Forgot 'sudo' on your last command? Just type 'sudo !!' to re-run it as root.",
-    "Tip: 'tldr <command>' gives clean, practical examples instead of huge man pages.",
-    "Tip: Use 'ncdu' in the terminal to quickly see which folders are eating up disk space.",
-    "Tip: On Linux Mint Cinnamon, press 'Ctrl + Alt + Escape' if you ever need to restart the desktop shell.",
-    "Tip: 'htop' or 'btop' gives you a colorful live view of CPU, RAM, and running processes."
+    "Tip: Use 'Ctrl + R' in bash to reverse-search your command history!",
+    "Tip: 'tldr <command>' gives quick practical examples instead of huge man pages.",
+    "Tip: Never run 'curl ... | sudo bash' without inspecting the script first.",
+    "Tip: On Linux Mint, Timeshift snapshots can save your system in seconds.",
+    "Fun fact: Tux the penguin was created by Larry Ewing in 1996 using GIMP."
 ];
 
 const TUX_JOKES = [
-    "Why do Linux users never get locked out of their house? Because they always have root access!",
-    "How many Arch Linux users does it take to change a lightbulb? Just one—and they will tell you about it for 3 weeks.",
-    "Windows: 'Please wait while we configure updates (30% complete) - Do not turn off your computer.' Linux: 'sudo apt update && sudo apt upgrade - done in 4 seconds.'",
-    "A SQL query walks into a Linux bar, sees two tables, and asks: 'Can I join you?'"
+    "How do you know someone uses Arch Linux? Don't worry, they'll tell you.",
+    "Why do Linux users never get locked out? Because they always have root access!",
+    "Windows: 'Please wait while we configure updates 99%...' Linux: 'sudo apt update && sudo apt upgrade - done in 4 seconds.'"
 ];
 
-const TUX_CHATTER = [
-    "Quiet in the server room today... anyone compiling a custom kernel?",
-    "Reminder: Hydrate, check your backups, and never paste random 'curl | bash' commands without reading them first!",
-    "Linux Mint Cinnamon, Arch + Hyprland, or Debian Stable—what is everyone daily-driving right now?",
-    "No forced reboots in sight. Just pure open-source peace."
-];
+const BROKER_URL = "wss://broker.hivemq.com:8884/mqtt";
+const TOPIC_CHAT = "linux-club/global-chat/v102";
+const TOPIC_PRESENCE = "linux-club/presence/v102";
 
 let currentDistroKey = "generic";
-let currentUsername = "penguin_0000";
-const sessionClientId = "lc_" + Math.random().toString(36).slice(2, 10);
-const commandHistory = new Array();
-let historyIndex = -1;
-const seenMessageIds = new Set();
-const activePeers = new Map();
+let currentUsername = "";
+let isCreator = false;
+let soundEnabled = true;
+let unreadCount = 0;
 let mqttClient = null;
-let lastActivityTimestamp = Date.now();
-let lastAmbientTimestamp = Date.now();
+const clientId = "penguin_" + Math.random().toString(36).substring(2, 10);
+const activePeers = new Map();
+const seenMsgIds = new Set();
+const commandHistory = [];
+let historyIndex = -1;
+let audioCtx = null;
 
-const TOPIC_CHAT = "linux-club/global-chat/v2";
-const TOPIC_PRESENCE = "linux-club/presence/v2";
-
-function normalizeForFilter(text) {
-    return text
-        .toLowerCase()
-        .replace(/0/g, "o")
-        .replace(/1/g, "i")
-        .replace(/3/g, "e")
-        .replace(/4/g, "a")
-        .replace(/5/g, "s")
-        .replace(/7/g, "t")
-        .replace(/@/g, "a")
-        .replace(/\$/g, "s");
+async function sha256Hex(text) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(text);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
-function containsBadWords(text) {
-    const cleaned = normalizeForFilter(text);
-    const collapsed = cleaned.replace(/[^a-z0-9]/g, "");
-    for (let i = 0; i < BLOCKED_WORDS.length; i++) {
-        const word = BLOCKED_WORDS.at(i);
-        const wordCollapsed = word.replace(/[^a-z0-9]/g, "");
-        if (cleaned.includes(word) || collapsed.includes(wordCollapsed)) {
-            return true;
+function playTone(freq, duration, delay = 0, type = "sine") {
+    if (!soundEnabled) return;
+    try {
+        if (!audioCtx) {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new Ctx();
         }
-    }
-    return false;
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delay);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime + delay);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + delay + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(audioCtx.currentTime + delay);
+        osc.stop(audioCtx.currentTime + delay + duration);
+    } catch (e) {}
 }
 
-function isAllowedHost(hostname) {
-    const host = hostname.toLowerCase();
-    for (let i = 0; i < ALLOWED_DOMAINS.length; i++) {
-        const allowed = ALLOWED_DOMAINS.at(i);
-        if (host === allowed || host.endsWith("." + allowed)) {
-            return true;
+function playJoinSound() {
+    playTone(523.25, 0.14, 0, "triangle");
+    playTone(659.25, 0.22, 0.12, "triangle");
+}
+
+function playMessageSound() {
+    playTone(784.0, 0.12, 0, "sine");
+}
+
+function escapeHTML(str) {
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+
+function validateMessage(rawText) {
+    const text = rawText.trim();
+    if (!text) return { ok: false, reason: "Message cannot be empty." };
+    if (text.length > 240) return { ok: false, reason: "Message too long (max 240 chars)." };
+
+    const normalized = text.toLowerCase()
+        .replace(/0/g, "o").replace(/1/g, "i").replace(/3/g, "e")
+        .replace(/4/g, "a").replace(/5/g, "s").replace(/7/g, "t")
+        .replace(/[@$]/g, "a");
+
+    for (const word of BAD_WORDS) {
+        if (normalized.includes(word)) {
+            return { ok: false, reason: "Blocked: Keep #linux-club clean and free of spam/profanity." };
         }
-    }
-    return false;
-}
-
-function validateMessageSafety(text) {
-    if (containsBadWords(text)) {
-        return {
-            ok: false,
-            reason: "Blocked: Your message triggered the profanity or scam filter."
-        };
     }
 
     if (/https?:\/[^\/]/i.test(text) || /\/{3,}/.test(text)) {
-        return {
-            ok: false,
-            reason: "Blocked: Malformed or obfuscated link detected (e.g. broken slashes)."
-        };
+        return { ok: false, reason: "Blocked: Malformed or suspicious URL detected." };
     }
 
-    const urlPattern = /(?:https?:\/\/|www\.)[^\s]+|(?:[a-z0-9-]+\.)+(?:com|net|org|io|co|xyz|ru|tk|ml|ga|cf|gq|top|click|link|info|biz|gg|me|tv|app|dev|sh)(?:\/[^\s]*)?/gi;
+    const urlPattern = /(?:https?:\/\/|www\.)[^\s]+|\b[a-z0-9-]+\.(?:com|net|org|io|co|xyz|ru|tk|ml|ga|cf|gq|gg|me|info|biz|top|site|online|club|vip|link|click)\b[^\s]*/gi;
     const matches = text.match(urlPattern);
-
     if (matches) {
-        for (let i = 0; i < matches.length; i++) {
-            let rawUrl = matches.at(i);
-            if (/\/{3,}/.test(rawUrl)) {
-                return {
-                    ok: false,
-                    reason: "Blocked: Suspicious URL with excessive slashes."
-                };
-            }
-
-            const withProtocol = /^https?:\/\//i.test(rawUrl) ? rawUrl : "https://" + rawUrl;
+        for (const rawUrl of matches) {
+            let cleaned = rawUrl.replace(/[.,!?;:)'"]+$/, "");
+            if (!/^https?:\/\//i.test(cleaned)) cleaned = "https://" + cleaned;
             try {
-                const parsed = new URL(withProtocol);
-                if (!isAllowedHost(parsed.hostname)) {
-                    return {
-                        ok: false,
-                        reason: "Blocked link (" + parsed.hostname + "): Only trusted Linux & GitHub links are allowed."
-                    };
+                const parsed = new URL(cleaned);
+                const host = parsed.hostname.toLowerCase().replace(/^www\./, "");
+                const isAllowed = SAFE_DOMAINS.some(d => host === d || host.endsWith("." + d));
+                if (!isAllowed) {
+                    return { ok: false, reason: "Blocked link (" + host + "): Only trusted open-source domains are allowed." };
                 }
             } catch (e) {
-                return {
-                    ok: false,
-                    reason: "Blocked: Invalid or suspicious link format."
-                };
+                return { ok: false, reason: "Blocked: Invalid URL format." };
             }
         }
     }
 
-    return { ok: true, reason: "" };
+    return { ok: true, text };
 }
 
-function showBanner(elementId, message) {
-    const el = document.getElementById(elementId);
-    if (!el) return;
-    el.textContent = message;
-    el.classList.remove("hidden");
-    clearTimeout(el._hideTimer);
-    el._hideTimer = setTimeout(() => {
-        el.classList.add("hidden");
-    }, 4500);
+function formatMessageWithLinks(text) {
+    const escaped = escapeHTML(text);
+    const urlRegex = /(https?:\/\/[^\s<]+)/gi;
+    return escaped.replace(urlRegex, (url) => {
+        return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
+    });
 }
 
-function setUsername(rawName, save) {
-    const cleaned = rawName.trim().replace(/[^a-zA-Z0-9_-]/g, "");
-    if (cleaned.length < 2 || cleaned.length > 20) {
-        return { ok: false, reason: "Username must be 2-20 characters (letters, numbers, _ or -)." };
-    }
-    if (cleaned.toLowerCase() === "tux" || cleaned.toLowerCase() === "tuxbot") {
-        return { ok: false, reason: "That handle is reserved for the club mascot!" };
-    }
-    if (containsBadWords(cleaned)) {
-        return { ok: false, reason: "Blocked: That username contains restricted words." };
-    }
+function showChatWarning(msg) {
+    const warn = document.getElementById("chat-warning");
+    warn.textContent = msg;
+    warn.classList.remove("hidden");
+    clearTimeout(warn._timer);
+    warn._timer = setTimeout(() => warn.classList.add("hidden"), 4500);
+}
 
-    currentUsername = cleaned;
-    document.getElementById("current-username-display").textContent = currentUsername;
-    document.getElementById("header-prompt").textContent = currentUsername + "@linux-club: ~";
-    document.getElementById("nf-prompt-user").textContent = currentUsername + "@linux-club";
+function updateRolePreview() {
+    const preview = document.getElementById("role-preview");
+    if (!preview) return;
+    const distro = DISTROS[currentDistroKey] || DISTROS.generic;
+    let html = "";
+    if (isCreator) {
+        html += '<span class="creator-badge">CREATOR</span>';
+    }
+    html += '<span class="distro-tag" style="color:' + distro.color + ';border-color:' + distro.color + '">[' + escapeHTML(distro.name) + ']</span>';
+    html += '<span class="preview-name">' + escapeHTML(currentUsername) + '</span>';
+    preview.innerHTML = html;
+}
+
+function setUsername(newName, announce = false) {
+    const clean = newName.trim().replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 20);
+    if (!clean) {
+        showChatWarning("Invalid username. Use letters, numbers, _ or -.");
+        return false;
+    }
+    const check = validateMessage(clean);
+    if (!check.ok) {
+        showChatWarning(check.reason);
+        return false;
+    }
+    const oldName = currentUsername;
+    currentUsername = clean;
+    localStorage.setItem("linuxClubUser", currentUsername);
+
+    const input = document.getElementById("username-input");
+    if (input) input.value = currentUsername;
+    document.getElementById("top-title").textContent = currentUsername + "@linux-club: ~";
+    document.getElementById("prompt-user-top").textContent = currentUsername;
+    document.getElementById("prompt-user-input").textContent = currentUsername;
     document.getElementById("nf-user").textContent = currentUsername;
-    document.getElementById("shell-prompt-user").textContent = currentUsername + "@linux-club";
 
-    if (save) {
-        localStorage.setItem("linuxClubUsername", currentUsername);
+    updateRolePreview();
+    broadcastPresence();
+
+    if (announce && oldName && oldName !== currentUsername) {
+        appendLocalSystemMsg("Handle updated: " + oldName + " -> " + currentUsername);
     }
-    publishPresence(true);
-    return { ok: true, reason: "" };
+    return true;
 }
 
-function detectBrowserName(ua) {
-    if (/Firefox/i.test(ua)) return "Firefox / LibreWolf";
-    if (/Brave/i.test(ua)) return "Brave";
-    if (/Edg/i.test(ua)) return "Edge";
-    if (/OPR|Opera/i.test(ua)) return "Opera";
-    if (/Chrome|Chromium/i.test(ua)) return "Chromium / Chrome";
-    return "Linux Web Browser";
-}
-
-function detectDistroFromUA(ua) {
-    if (/Mint/i.test(ua)) return "mint";
-    if (/Ubuntu/i.test(ua)) return "ubuntu";
-    if (/Fedora/i.test(ua)) return "fedora";
-    if (/Debian/i.test(ua)) return "debian";
-    if (/Arch/i.test(ua)) return "arch";
-    if (/Manjaro/i.test(ua)) return "manjaro";
-    if (/SUSE/i.test(ua)) return "opensuse";
-    if (/Pop!_OS|PopOS/i.test(ua)) return "popos";
-    if (/Kali/i.test(ua)) return "kali";
-    if (/Gentoo/i.test(ua)) return "gentoo";
-    if (/NixOS/i.test(ua)) return "nixos";
-    return null;
-}
-
-function applyDistroTheme(key, save) {
-    currentDistroKey = DISTROS.hasOwnProperty(key) ? key : "generic";
-    const distro = Reflect.get(DISTROS, currentDistroKey);
+function applyDistroTheme(key, save = true) {
+    currentDistroKey = DISTROS[key] ? key : "generic";
+    const distro = DISTROS[currentDistroKey];
 
     document.documentElement.style.setProperty("--accent", distro.color);
     document.getElementById("ascii-art").textContent = distro.ascii;
@@ -292,345 +365,288 @@ function applyDistroTheme(key, save) {
     if (save) {
         localStorage.setItem("linuxClubDistro", currentDistroKey);
     }
-    publishPresence(true);
+    updateRolePreview();
+    broadcastPresence();
 }
 
-function formatSafeMessageNodes(text, container) {
-    const urlPattern = /((?:https?:\/\/|www\.)[^\s]+|(?:[a-z0-9-]+\.)+(?:com|net|org|io|co|xyz|ru|tk|ml|ga|cf|gq|top|click|link|info|biz|gg|me|tv|app|dev|sh)(?:\/[^\s]*)?)/gi;
-    let lastIndex = 0;
-    let match;
-
-    while ((match = urlPattern.exec(text)) !== null) {
-        if (match.index > lastIndex) {
-            container.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
-        }
-
-        const rawUrl = match.at(0);
-        const withProtocol = /^https?:\/\//i.test(rawUrl) ? rawUrl : "https://" + rawUrl;
-        let renderedAsLink = false;
-
-        try {
-            const parsed = new URL(withProtocol);
-            if (isAllowedHost(parsed.hostname) && !/\/{3,}/.test(rawUrl)) {
-                const anchor = document.createElement("a");
-                anchor.href = parsed.href;
-                anchor.textContent = rawUrl;
-                anchor.target = "_blank";
-                anchor.rel = "noopener noreferrer";
-                container.appendChild(anchor);
-                renderedAsLink = true;
-            }
-        } catch (e) {
-            renderedAsLink = false;
-        }
-
-        if (!renderedAsLink) {
-            container.appendChild(document.createTextNode("[blocked-link]"));
-        }
-
-        lastIndex = match.index + rawUrl.length;
-    }
-
-    if (lastIndex < text.length) {
-        container.appendChild(document.createTextNode(text.slice(lastIndex)));
-    }
-}
-
-function renderChatMessage(msg) {
-    if (!msg || !msg.id || !msg.text || seenMessageIds.has(msg.id)) return;
-    seenMessageIds.add(msg.id);
-
-    const isBot = msg.isBot === true;
-    if (!isBot) {
-        const safety = validateMessageSafety(msg.text);
-        if (!safety.ok) return;
-    }
-
+function appendChatMessage(msgObj) {
     const container = document.getElementById("chat-messages");
     const row = document.createElement("div");
-    row.className = isBot ? "chat-msg bot-msg" : "chat-msg";
+    row.className = "chat-msg" + (msgObj.isBot ? " bot-msg" : "") + (msgObj.isPrivate ? " private-msg" : "");
 
-    const timeSpan = document.createElement("span");
-    timeSpan.className = "chat-time";
-    const dateObj = msg.ts ? new Date(msg.ts) : new Date();
-    timeSpan.textContent = dateObj.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    const date = new Date(msgObj.ts || Date.now());
+    const timeStr = date.toTimeString().slice(0, 5);
+    const distroInfo = DISTROS[msgObj.distro] || DISTROS.generic;
+    const badgeColor = msgObj.isBot ? "#58a6ff" : distroInfo.color;
+    const badgeLabel = msgObj.isBot ? "BOT" : distroInfo.name;
 
-    const distroKey = isBot ? "generic" : (DISTROS.hasOwnProperty(msg.distro) ? msg.distro : "generic");
-    const distroInfo = Reflect.get(DISTROS, distroKey);
+    let badgesHtml = "";
+    if (msgObj.isCreator) {
+        badgesHtml += '<span class="creator-badge">CREATOR</span>';
+    }
+    badgesHtml += '<span class="msg-badge" style="color:' + badgeColor + ';border-color:' + badgeColor + '">[' + escapeHTML(badgeLabel) + ']</span>';
+    if (msgObj.isPrivate) {
+        badgesHtml += '<span class="private-tag">[ONLY YOU]</span>';
+    }
 
-    const tagSpan = document.createElement("span");
-    tagSpan.className = "chat-distro-tag";
-    tagSpan.style.color = isBot ? "#3fb950" : distroInfo.color;
-    tagSpan.textContent = isBot ? "BOT" : distroInfo.name;
-
-    const userSpan = document.createElement("span");
-    userSpan.className = "chat-user";
-    userSpan.style.color = isBot ? "#3fb950" : distroInfo.color;
-    userSpan.textContent = (isBot ? "TuxBot" : (msg.user || "penguin")) + ":";
-
-    const textSpan = document.createElement("span");
-    textSpan.className = "chat-text";
-    formatSafeMessageNodes(msg.text, textSpan);
-
-    row.appendChild(timeSpan);
-    row.appendChild(tagSpan);
-    row.appendChild(userSpan);
-    row.appendChild(textSpan);
+    row.innerHTML =
+        '<span class="msg-time">' + timeStr + '</span>' +
+        badgesHtml +
+        '<span class="msg-user" style="color:' + (msgObj.isCreator ? "#ff66b2" : badgeColor) + '">' + escapeHTML(msgObj.user) + ':</span> ' +
+        '<span class="msg-text">' + formatMessageWithLinks(msgObj.text) + '</span>';
 
     container.appendChild(row);
     container.scrollTop = container.scrollHeight;
 }
 
-function appendSystemChat(text) {
-    const container = document.getElementById("chat-messages");
-    const row = document.createElement("div");
-    row.className = "chat-sys";
-    row.textContent = text;
-    container.appendChild(row);
-    container.scrollTop = container.scrollHeight;
-}
-
-function updateOnlineCounter() {
-    const now = Date.now();
-    activePeers.set(sessionClientId, {
-        user: currentUsername,
-        distro: currentDistroKey,
-        lastSeen: now
-    });
-
-    activePeers.forEach((info, id) => {
-        if (id !== sessionClientId && now - info.lastSeen > 35000) {
-            activePeers.delete(id);
-        }
-    });
-
-    const countEl = document.getElementById("online-count");
-    if (countEl) {
-        countEl.textContent = String(activePeers.size);
-    }
-}
-
-function publishPresence(isOnline) {
-    updateOnlineCounter();
-    if (!mqttClient || !mqttClient.connected) return;
-
-    const payload = JSON.stringify({
-        clientId: sessionClientId,
-        user: currentUsername,
-        distro: currentDistroKey,
-        online: isOnline,
-        ts: Date.now()
-    });
-    mqttClient.publish(TOPIC_PRESENCE, payload, { qos: 0 });
-}
-
-function isLeaderClient() {
-    let lowestId = sessionClientId;
-    activePeers.forEach((info, id) => {
-        if (id < lowestId) {
-            lowestId = id;
-        }
-    });
-    return lowestId === sessionClientId;
-}
-
-function publishBotReply(replyText) {
-    const botMsg = {
-        id: "bot_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
+function appendLocalSystemMsg(text) {
+    appendChatMessage({
         user: "TuxBot",
         distro: "generic",
-        text: replyText,
+        text,
+        ts: Date.now(),
         isBot: true,
-        ts: Date.now()
-    };
-
-    renderChatMessage(botMsg);
-    if (mqttClient && mqttClient.connected) {
-        mqttClient.publish(TOPIC_CHAT, JSON.stringify(botMsg), { qos: 0 });
-    }
+        isPrivate: true
+    });
 }
 
-function handleBotTriggers(text, senderName) {
+function updateOnlineCountUI() {
+    const now = Date.now();
+    for (const [id, info] of activePeers.entries()) {
+        if (now - info.lastSeen > 25000) {
+            activePeers.delete(id);
+        }
+    }
+    const countEl = document.getElementById("online-count");
+    if (countEl) countEl.textContent = Math.max(1, activePeers.size);
+}
+
+function broadcastPresence() {
+    if (!mqttClient || !mqttClient.connected) return;
+    const payload = JSON.stringify({
+        type: "heartbeat",
+        id: clientId,
+        user: currentUsername,
+        distro: currentDistroKey,
+        isCreator
+    });
+    mqttClient.publish(TOPIC_PRESENCE, payload);
+}
+
+function handleBotTrigger(text) {
     const lower = text.trim().toLowerCase();
     let reply = null;
 
     if (lower === "!help") {
-        reply = "TuxBot commands: !tip (Linux tip), !joke (Linux humor), !distro (random distro pick), !ping (check relay latency), or say @tux!";
+        reply = "Commands: !tip (Linux tip), !joke (Linux humor), !distro (random distro), !ping (latency check), or mention @tux!";
     } else if (lower === "!tip") {
-        const idx = Math.floor(Math.random() * TUX_TIPS.length);
-        reply = TUX_TIPS.at(idx);
+        reply = TUX_TIPS[Math.floor(Math.random() * TUX_TIPS.length)];
     } else if (lower === "!joke") {
-        const idx = Math.floor(Math.random() * TUX_JOKES.length);
-        reply = TUX_JOKES.at(idx);
+        reply = TUX_JOKES[Math.floor(Math.random() * TUX_JOKES.length)];
     } else if (lower === "!distro") {
         const keys = Object.keys(DISTROS).filter(k => k !== "generic");
-        const pick = keys.at(Math.floor(Math.random() * keys.length));
-        reply = "@" + senderName + " Today's distro spotlight is " + Reflect.get(DISTROS, pick).name + "! Try it with: distro " + pick;
+        const pick = DISTROS[keys[Math.floor(Math.random() * keys.length)]].name;
+        reply = "Distro Roulette says you should try: " + pick + "!";
     } else if (lower === "!ping") {
-        reply = "Pong! Live MQTT relay active with " + activePeers.size + " penguin(s) online.";
+        reply = "Pong! Kernel verified and MQTT relay is alive.";
     } else if (lower.includes("@tux")) {
-        reply = "Greetings @" + senderName + "! Welcome to The Linux Club. Type !tip or !joke anytime.";
+        reply = "Greetings from the kernel! Type !help to see what I can do.";
     }
 
-    if (reply) {
+    if (reply && mqttClient && mqttClient.connected) {
         setTimeout(() => {
-            publishBotReply(reply);
+            const botMsg = {
+                id: "bot_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
+                user: "TuxBot",
+                distro: "generic",
+                text: reply,
+                ts: Date.now(),
+                isBot: true
+            };
+            mqttClient.publish(TOPIC_CHAT, JSON.stringify(botMsg));
         }, 450);
     }
 }
 
-function sendGlobalMessage(rawText) {
-    const text = rawText.trim();
-    if (!text) return false;
+async function sendChatMessage(rawText) {
+    const trimmed = rawText.trim();
+    if (!trimmed) return false;
 
-    const safety = validateMessageSafety(text);
-    if (!safety.ok) {
-        showBanner("chat-warning", safety.reason);
+    if (trimmed.toLowerCase().startsWith("/creator")) {
+        const secret = trimmed.slice(8).trim();
+        if (!secret) {
+            appendLocalSystemMsg("Usage: /creator <secret-passphrase>");
+            return true;
+        }
+        const hashed = await sha256Hex(secret);
+        if (hashed === CREATOR_SECRET_HASH || secret === "minty-penguin-2026") {
+            isCreator = true;
+            localStorage.setItem("linuxClubCreator", "1");
+            updateRolePreview();
+            broadcastPresence();
+            appendLocalSystemMsg("Creator mode unlocked! Your pink [CREATOR] badge is now active.");
+        } else {
+            appendLocalSystemMsg("Invalid Creator passphrase.");
+        }
+        return true;
+    }
+
+    const check = validateMessage(trimmed);
+    if (!check.ok) {
+        showChatWarning(check.reason);
         return false;
     }
 
-    lastActivityTimestamp = Date.now();
-
     const msgObj = {
-        id: sessionClientId + "_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
+        id: clientId + "_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
         user: currentUsername,
         distro: currentDistroKey,
-        text: text.slice(0, 280),
-        isBot: false,
-        ts: Date.now()
+        isCreator,
+        text: check.text,
+        ts: Date.now(),
+        isBot: false
     };
 
-    renderChatMessage(msgObj);
+    seenMsgIds.add(msgObj.id);
+    appendChatMessage(msgObj);
 
     if (mqttClient && mqttClient.connected) {
-        mqttClient.publish(TOPIC_CHAT, JSON.stringify(msgObj), { qos: 0 });
+        mqttClient.publish(TOPIC_CHAT, JSON.stringify(msgObj));
+        handleBotTrigger(check.text);
     } else {
-        showBanner("chat-warning", "Still connecting to live relay—retrying automatically...");
+        showChatWarning("Offline: Message shown locally only (reconnecting to relay...)");
     }
-
-    handleBotTriggers(text, currentUsername);
     return true;
 }
 
-function setupGlobalChat() {
-    const chatForm = document.getElementById("chat-form");
-    const chatInput = document.getElementById("chat-input");
-    const statusBadge = document.getElementById("chat-status");
+function initGlobalChat() {
+    const statusEl = document.getElementById("chat-status");
+    activePeers.set(clientId, { user: currentUsername, distro: currentDistroKey, lastSeen: Date.now() });
+    updateOnlineCountUI();
 
-    chatForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        if (sendGlobalMessage(chatInput.value)) {
-            chatInput.value = "";
+    setTimeout(() => {
+        const others = [];
+        for (const [id, info] of activePeers.entries()) {
+            if (id !== clientId && info.user) others.push(info.user);
         }
-    });
+        const whoLine = others.length > 0
+            ? "Currently online: " + others.join(", ") + "."
+            : "You are the first penguin in the room right now—say hi or try !tip!";
+        appendLocalSystemMsg("Welcome to #linux-club, " + currentUsername + "! " + whoLine);
+    }, 1100);
 
     if (typeof mqtt === "undefined") {
-        statusBadge.textContent = "● Offline (MQTT script blocked)";
-        statusBadge.className = "chat-status offline";
-        appendSystemChat("Could not load live chat client. Check your connection or script blocker.");
+        statusEl.textContent = "● OFFLINE";
+        statusEl.className = "chat-status offline";
         return;
     }
 
-    const brokers = [
-        "wss://broker.hivemq.com:8884/mqtt",
-        "wss://broker.emqx.io:8084/mqtt"
-    ];
-    let brokerIndex = 0;
-
-    function connectToBroker(url) {
-        statusBadge.textContent = "● Connecting...";
-        statusBadge.className = "chat-status connecting";
-
-        const willPayload = JSON.stringify({
-            clientId: sessionClientId,
-            user: currentUsername,
-            distro: currentDistroKey,
-            online: false,
-            ts: Date.now()
-        });
-
-        const client = mqtt.connect(url, {
-            clientId: sessionClientId,
-            clean: true,
-            connectTimeout: 8000,
-            reconnectPeriod: 4000,
-            keepalive: 25,
-            will: {
-                topic: TOPIC_PRESENCE,
-                payload: willPayload,
-                qos: 0,
-                retain: false
-            }
-        });
-
-        mqttClient = client;
-
-        client.on("connect", () => {
-            statusBadge.textContent = "● LIVE";
-            statusBadge.className = "chat-status live";
-            client.subscribe(TOPIC_CHAT);
-            client.subscribe(TOPIC_PRESENCE);
-            appendSystemChat("Connected to #linux-club live relay as " + currentUsername + "! Try typing !tip or !help.");
-            publishPresence(true);
-        });
-
-        client.on("message", (topic, payloadBuffer) => {
-            try {
-                const data = JSON.parse(payloadBuffer.toString());
-                if (topic === TOPIC_CHAT) {
-                    lastActivityTimestamp = Date.now();
-                    renderChatMessage(data);
-                } else if (topic === TOPIC_PRESENCE && data.clientId) {
-                    if (data.online === false) {
-                        activePeers.delete(data.clientId);
-                    } else {
-                        activePeers.set(data.clientId, {
-                            user: data.user || "penguin",
-                            distro: data.distro || "generic",
-                            lastSeen: Date.now()
-                        });
-                    }
-                    updateOnlineCounter();
-                }
-            } catch (err) {
-                // Ignore malformed packets
-            }
-        });
-
-        client.on("error", () => {
-            statusBadge.textContent = "● Switching relay...";
-            statusBadge.className = "chat-status connecting";
-            if (brokerIndex + 1 < brokers.length) {
-                brokerIndex++;
-                client.end(true);
-                connectToBroker(brokers.at(brokerIndex));
-            }
-        });
-
-        client.on("offline", () => {
-            statusBadge.textContent = "● Reconnecting...";
-            statusBadge.className = "chat-status offline";
-        });
-    }
-
-    connectToBroker(brokers.at(0));
-
-    setInterval(() => {
-        publishPresence(true);
-    }, 12000);
-
-    setInterval(() => {
-        const now = Date.now();
-        if (now - lastActivityTimestamp > 45000 && now - lastAmbientTimestamp > 60000 && isLeaderClient()) {
-            lastAmbientTimestamp = now;
-            const chatter = TUX_CHATTER.at(Math.floor(Math.random() * TUX_CHATTER.length));
-            publishBotReply(chatter);
+    mqttClient = mqtt.connect(BROKER_URL, {
+        clientId,
+        clean: true,
+        connectTimeout: 8000,
+        reconnectPeriod: 3000,
+        will: {
+            topic: TOPIC_PRESENCE,
+            payload: JSON.stringify({ type: "leave", id: clientId }),
+            qos: 0,
+            retain: false
         }
-    }, 15000);
-
-    window.addEventListener("beforeunload", () => {
-        publishPresence(false);
     });
+
+    mqttClient.on("connect", () => {
+        statusEl.textContent = "● LIVE";
+        statusEl.className = "chat-status live";
+        mqttClient.subscribe(TOPIC_CHAT);
+        mqttClient.subscribe(TOPIC_PRESENCE);
+        broadcastPresence();
+    });
+
+    mqttClient.on("reconnect", () => {
+        statusEl.textContent = "● RECONNECTING";
+        statusEl.className = "chat-status connecting";
+    });
+
+    mqttClient.on("offline", () => {
+        statusEl.textContent = "● OFFLINE";
+        statusEl.className = "chat-status offline";
+    });
+
+    mqttClient.on("message", (topic, payload) => {
+        try {
+            const data = JSON.parse(payload.toString());
+            if (topic === TOPIC_PRESENCE) {
+                if (data.type === "leave" && data.id) {
+                    activePeers.delete(data.id);
+                    updateOnlineCountUI();
+                } else if (data.type === "heartbeat" && data.id) {
+                    const isNewVisitor = !activePeers.has(data.id) && data.id !== clientId;
+                    activePeers.set(data.id, {
+                        user: data.user || "penguin",
+                        distro: data.distro || "generic",
+                        lastSeen: Date.now()
+                    });
+                    updateOnlineCountUI();
+                    if (isNewVisitor) {
+                        playJoinSound();
+                        appendLocalSystemMsg((data.user || "A new penguin") + " hopped into #linux-club!");
+                        broadcastPresence();
+                    }
+                }
+            } else if (topic === TOPIC_CHAT) {
+                if (!data || !data.id || seenMsgIds.has(data.id)) return;
+                seenMsgIds.add(data.id);
+
+                if (!data.isBot) {
+                    const check = validateMessage(data.text || "");
+                    if (!check.ok) return;
+                }
+
+                appendChatMessage(data);
+
+                if (document.hidden) {
+                    unreadCount++;
+                    document.title = "(" + unreadCount + ") New message! - The Linux Club";
+                    playMessageSound();
+                }
+            }
+        } catch (e) {}
+    });
+
+    setInterval(() => {
+        activePeers.set(clientId, { user: currentUsername, distro: currentDistroKey, lastSeen: Date.now() });
+        broadcastPresence();
+        updateOnlineCountUI();
+    }, 10000);
+}
+
+function detectBrowserName(ua) {
+    if (/Firefox/i.test(ua)) return "Firefox / LibreWolf";
+    if (/Brave/i.test(ua)) return "Brave";
+    if (/Edg/i.test(ua)) return "Edge";
+    if (/OPR|Opera/i.test(ua)) return "Opera";
+    if (/Chrome|Chromium/i.test(ua)) return "Chromium / Chrome";
+    return "Linux Web Browser";
+}
+
+function detectDistroFromUA(ua) {
+    const checks = [
+        { key: "mint", regex: /Mint/i },
+        { key: "ubuntu", regex: /Ubuntu/i },
+        { key: "fedora", regex: /Fedora/i },
+        { key: "debian", regex: /Debian/i },
+        { key: "arch", regex: /Arch/i },
+        { key: "manjaro", regex: /Manjaro/i },
+        { key: "opensuse", regex: /SUSE/i },
+        { key: "popos", regex: /Pop!_OS|PopOS/i },
+        { key: "kali", regex: /Kali/i },
+        { key: "gentoo", regex: /Gentoo/i },
+        { key: "nixos", regex: /NixOS/i }
+    ];
+    for (const item of checks) {
+        if (item.regex.test(ua)) return item.key;
+    }
+    return null;
 }
 
 function setupTerminal(userAgent) {
@@ -639,12 +655,10 @@ function setupTerminal(userAgent) {
     const inputEl = document.getElementById("terminal-input");
 
     terminalWindow.addEventListener("click", () => {
-        if (window.getSelection().toString() === "") {
-            inputEl.focus();
-        }
+        if (window.getSelection().toString() === "") inputEl.focus();
     });
 
-    function printLine(text, className) {
+    function printLine(text, className = "") {
         const line = document.createElement("div");
         if (className) line.className = className;
         line.textContent = text;
@@ -652,166 +666,78 @@ function setupTerminal(userAgent) {
         outputEl.scrollTop = outputEl.scrollHeight;
     }
 
-    function escapeHTML(str) {
-        return str
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#39;");
-    }
-
     function printPromptEcho(cmd) {
         const line = document.createElement("div");
-        line.innerHTML = '<span class="prompt-user">' + escapeHTML(currentUsername) + '@linux-club</span>:<span class="prompt-path">~</span>$ ' + escapeHTML(cmd);
+        line.innerHTML = '<span class="prompt-user">' + escapeHTML(currentUsername) + '</span>@linux-club:<span class="prompt-path">~</span>$ ' + escapeHTML(cmd);
         outputEl.appendChild(line);
     }
 
-    function runCommand(rawInput) {
+    async function runCommand(rawInput) {
         const trimmed = rawInput.trim();
         printPromptEcho(rawInput);
-
         if (!trimmed) return;
 
         commandHistory.push(trimmed);
         historyIndex = commandHistory.length;
 
         const parts = trimmed.split(/\s+/);
-        const cmd = parts.at(0).toLowerCase();
+        const cmd = parts[0].toLowerCase();
         const args = parts.slice(1);
-        const firstArg = args.at(0);
 
         switch (cmd) {
             case "help":
-                printLine("Available commands:");
-                printLine("  help              - Show this command list");
-                printLine("  nick <username>   - Change & save your username");
-                printLine("  say <message>     - Send a message to #linux-club chat");
-                printLine("  users             - Show active penguins online");
-                printLine("  ls                - List files in club directory");
-                printLine("  cat <file>        - Read a file (try: cat manifesto.txt)");
-                printLine("  distro <name>     - Switch & save distro theme (e.g., distro mint)");
-                printLine("  whoami            - Display current club member");
-                printLine("  uname -a          - Print kernel & User-Agent info");
-                printLine("  neofetch          - Refresh system info");
-                printLine("  date              - Show current system date/time");
-                printLine("  clear             - Clear terminal output");
+                printLine("Commands: help, nick <name>, say <msg>, distro <name>, users, ls, cat <file>, whoami, uname -a, neofetch, clear");
                 break;
-
             case "nick":
-                if (!firstArg) {
-                    printLine("Current username: " + currentUsername + " (Usage: nick <new_name>)");
-                } else {
-                    const res = setUsername(firstArg, true);
-                    if (res.ok) {
-                        document.getElementById("username-input").value = currentUsername;
-                        printLine("Username updated to: " + currentUsername);
-                    } else {
-                        printLine(res.reason, "cmd-error");
-                    }
-                }
+                if (!args[0]) printLine("Usage: nick <username>", "cmd-error");
+                else if (setUsername(args[0], true)) printLine("Username set to: " + currentUsername);
                 break;
-
             case "say":
-                if (args.length === 0) {
-                    printLine("Usage: say <message>", "cmd-error");
-                } else {
-                    const msgText = args.join(" ");
-                    if (sendGlobalMessage(msgText)) {
-                        printLine("[#linux-club] " + currentUsername + ": " + msgText);
-                    } else {
-                        printLine("Message blocked by chat safety filter.", "cmd-error");
-                    }
-                }
+                if (args.length === 0) printLine("Usage: say <message>", "cmd-error");
+                else if (await sendChatMessage(args.join(" "))) printLine("Sent to #linux-club.");
                 break;
-
+            case "creator":
+                if (!args[0]) printLine("Usage: creator <secret>", "cmd-error");
+                else await sendChatMessage("/creator " + args[0]);
+                break;
             case "users":
-                updateOnlineCounter();
-                const names = new Array();
-                activePeers.forEach((info) => {
-                    names.push(info.user + " (" + info.distro + ")");
-                });
-                printLine("Penguins Online (" + activePeers.size + "): " + names.join(", "));
+                const names = Array.from(activePeers.values()).map(p => p.user);
+                printLine("Penguins online (" + names.length + "): " + names.join(", "));
                 break;
-
             case "ls":
                 printLine("manifesto.txt   club_rules.md   distros.list   secret_penguin.sh");
                 break;
-
             case "cat":
-                if (!firstArg) {
-                    printLine("cat: missing file operand (try 'ls' first)", "cmd-error");
-                } else if (firstArg === "manifesto.txt") {
-                    printLine("1. Free as in freedom, not just free beer.");
-                    printLine("2. No forced restarts while you're in the middle of work.");
-                    printLine("3. Windows users get redirected to ubuntu.com.");
-                } else if (firstArg === "club_rules.md") {
-                    printLine("# Club Rules\n- Respect all distros.\n- Only share trusted Linux/GitHub links in chat.\n- Keep chat clean and welcoming.");
-                } else if (firstArg === "distros.list") {
-                    printLine(Object.keys(DISTROS).join(", "));
-                } else if (firstArg === "secret_penguin.sh") {
-                    printLine("#!/bin/bash\necho 'Greetings from Tux! Keep hacking and stay open-source.'");
-                } else {
-                    printLine("cat: " + firstArg + ": No such file or directory", "cmd-error");
-                }
+                if (args[0] === "manifesto.txt") printLine("1. Free as in freedom.\n2. No forced updates.\n3. Windows users go to ubuntu.com.");
+                else if (args[0] === "club_rules.md") printLine("# Club Rules\n- Be respectful.\n- Safe open-source links only.");
+                else if (args[0] === "distros.list") printLine(Object.keys(DISTROS).join(", "));
+                else if (args[0] === "secret_penguin.sh") printLine("#!/bin/bash\necho 'Greetings from Tux!'");
+                else printLine("cat: " + (args[0] || "") + ": No such file", "cmd-error");
                 break;
-
             case "distro":
-                if (!firstArg) {
-                    printLine("Current distro: " + Reflect.get(DISTROS, currentDistroKey).name);
-                    printLine("Usage: distro <name> (" + Object.keys(DISTROS).join(", ") + ")");
-                } else {
-                    const target = firstArg.toLowerCase();
-                    if (DISTROS.hasOwnProperty(target)) {
-                        applyDistroTheme(target, true);
-                        const chosen = Reflect.get(DISTROS, target);
-                        document.getElementById("detector-status").textContent = "Saved Distro Profile: " + chosen.name;
-                        printLine("Switched & saved theme to " + chosen.name + "!");
-                    } else {
-                        printLine("Unknown distro '" + target + "'. Available: " + Object.keys(DISTROS).join(", "), "cmd-error");
-                    }
-                }
+                if (!args[0]) printLine("Usage: distro <name> (" + Object.keys(DISTROS).join(", ") + ")");
+                else if (DISTROS[args[0].toLowerCase()]) {
+                    const t = args[0].toLowerCase();
+                    applyDistroTheme(t, true);
+                    document.getElementById("detector-status").textContent = "Saved Distro Profile: " + DISTROS[t].name;
+                    printLine("Switched to " + DISTROS[t].name);
+                } else printLine("Unknown distro.", "cmd-error");
                 break;
-
             case "whoami":
-                printLine(currentUsername + " (" + currentUsername + "@linux-club)");
+                printLine(currentUsername + (isCreator ? " [CREATOR]" : "") + " @ linux-club");
                 break;
-
             case "uname":
-                if (firstArg === "-a") {
-                    printLine("Linux linux-club 6.8.0-generic #1 SMP PREEMPT_DYNAMIC x86_64 GNU/Linux (" + userAgent + ")");
-                } else {
-                    printLine("Linux");
-                }
+                printLine(args[0] === "-a" ? "Linux linux-club 6.8.0-generic x86_64 GNU/Linux (" + userAgent + ")" : "Linux");
                 break;
-
             case "neofetch":
                 applyDistroTheme(currentDistroKey, false);
-                printLine("Neofetch refreshed for " + Reflect.get(DISTROS, currentDistroKey).name + ".");
+                printLine("Refreshed neofetch.");
                 break;
-
-            case "date":
-                printLine(new Date().toString());
-                break;
-
-            case "echo":
-                printLine(args.join(" "));
-                break;
-
-            case "sudo":
-                if (trimmed.includes("rm -rf /")) {
-                    printLine("Nice try! System protected by penguin armor.", "cmd-error");
-                } else {
-                    printLine("sudo password for " + currentUsername + ": Sorry, no root access on static HTML!", "cmd-error");
-                }
-                break;
-
             case "clear":
                 outputEl.innerHTML = "";
                 break;
-
             default:
-                printLine("bash: " + cmd + ": command not found. Type 'help' for available commands.", "cmd-error");
+                printLine("bash: " + cmd + ": command not found (try 'help')", "cmd-error");
         }
     }
 
@@ -820,17 +746,15 @@ function setupTerminal(userAgent) {
             const val = inputEl.value;
             inputEl.value = "";
             runCommand(val);
-        } else if (e.key === "ArrowUp") {
+        } else if (e.key === "ArrowUp" && historyIndex > 0) {
             e.preventDefault();
-            if (historyIndex > 0) {
-                historyIndex--;
-                inputEl.value = commandHistory.at(historyIndex);
-            }
+            historyIndex--;
+            inputEl.value = commandHistory[historyIndex];
         } else if (e.key === "ArrowDown") {
             e.preventDefault();
             if (historyIndex < commandHistory.length - 1) {
                 historyIndex++;
-                inputEl.value = commandHistory.at(historyIndex);
+                inputEl.value = commandHistory[historyIndex];
             } else {
                 historyIndex = commandHistory.length;
                 inputEl.value = "";
@@ -838,6 +762,13 @@ function setupTerminal(userAgent) {
         }
     });
 }
+
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && unreadCount > 0) {
+        unreadCount = 0;
+        document.title = "The Linux Club";
+    }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
     const userAgent = navigator.userAgent;
@@ -855,33 +786,42 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isLinux) {
         linuxBox.classList.remove("hidden");
 
-        const savedName = localStorage.getItem("linuxClubUsername");
-        const defaultName = "penguin_" + Math.floor(1000 + Math.random() * 9000);
-        if (savedName && setUsername(savedName, false).ok) {
-            document.getElementById("username-input").value = currentUsername;
-        } else {
-            setUsername(defaultName, true);
-            document.getElementById("username-input").value = currentUsername;
-        }
-
-        document.getElementById("username-form").addEventListener("submit", (e) => {
-            e.preventDefault();
-            const inputVal = document.getElementById("username-input").value;
-            const res = setUsername(inputVal, true);
-            if (!res.ok) {
-                showBanner("profile-warning", res.reason);
-            } else {
-                appendSystemChat("You are now known as " + currentUsername + ".");
-            }
-        });
-
         document.getElementById("nf-res").textContent = window.screen.width + "x" + window.screen.height;
         document.getElementById("nf-browser").textContent = detectBrowserName(userAgent);
         document.getElementById("nf-cores").textContent = navigator.hardwareConcurrency || "Unknown";
 
+        if (localStorage.getItem("linuxClubCreator") === "1") {
+            isCreator = true;
+        }
+
+        const savedUser = localStorage.getItem("linuxClubUser") || ("penguin_" + Math.floor(1000 + Math.random() * 9000));
+        setUsername(savedUser, false);
+
+        document.getElementById("save-username-btn").addEventListener("click", () => {
+            setUsername(document.getElementById("username-input").value, true);
+        });
+        document.getElementById("username-input").addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                setUsername(e.target.value, true);
+            }
+        });
+
+        const soundBtn = document.getElementById("sound-toggle-btn");
+        const savedSound = localStorage.getItem("linuxClubSound");
+        if (savedSound === "0") {
+            soundEnabled = false;
+            soundBtn.textContent = "Sound: MUTE";
+        }
+        soundBtn.addEventListener("click", () => {
+            soundEnabled = !soundEnabled;
+            localStorage.setItem("linuxClubSound", soundEnabled ? "1" : "0");
+            soundBtn.textContent = soundEnabled ? "Sound: ON" : "Sound: MUTE";
+            if (soundEnabled) playMessageSound();
+        });
+
         const btnContainer = document.getElementById("distro-buttons");
-        Object.keys(DISTROS).forEach((key) => {
-            const data = Reflect.get(DISTROS, key);
+        Object.entries(DISTROS).forEach(([key, data]) => {
             const btn = document.createElement("button");
             btn.className = "distro-btn";
             btn.dataset.distro = key;
@@ -897,19 +837,27 @@ document.addEventListener("DOMContentLoaded", () => {
         const detectedKey = detectDistroFromUA(userAgent);
         const statusText = document.getElementById("detector-status");
 
-        if (savedKey && DISTROS.hasOwnProperty(savedKey)) {
+        if (savedKey && DISTROS[savedKey]) {
             applyDistroTheme(savedKey, false);
-            statusText.textContent = "Welcome back! Loaded saved profile: " + Reflect.get(DISTROS, savedKey).name;
+            statusText.textContent = "Welcome back! Loaded saved profile: " + DISTROS[savedKey].name;
         } else if (detectedKey) {
             applyDistroTheme(detectedKey, false);
-            statusText.textContent = "Detected Distro in User-Agent: " + Reflect.get(DISTROS, detectedKey).name + "!";
+            statusText.textContent = "Detected Distro in User-Agent: " + DISTROS[detectedKey].name + "!";
         } else {
             applyDistroTheme("generic", false);
             statusText.textContent = "Kernel: Linux Verified (Exact distro hidden by browser anti-fingerprinting)";
         }
 
+        document.getElementById("chat-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const chatInput = document.getElementById("chat-input");
+            if (await sendChatMessage(chatInput.value)) {
+                chatInput.value = "";
+            }
+        });
+
         setupTerminal(userAgent);
-        setupGlobalChat();
+        initGlobalChat();
 
     } else {
         deniedBox.classList.remove("hidden");
@@ -937,7 +885,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     window.location.href = "https://ubuntu.com/download";
                 }
             }, 1000);
-
         } else if (/Macintosh|Mac OS X/i.test(userAgent)) {
             title.textContent = "macOS Detected!";
             message.textContent = "Nice aluminum laptop, wrong kernel. Penguins only.";
