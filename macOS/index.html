@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ONLY-MACOS-CLUB</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      background-color: #1c1c1e;
+      color: #f5f5f7;
+      padding: 24px;
+    }
+
+    /* macOS Kernel Panic Style (for Linux & Windows users) */
+    .panic-container {
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+      display: none;
+    }
+
+    .power-icon {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: #8e8e93;
+      border: 2px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .panic-title {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    .panic-sub {
+      font-size: 16px;
+      color: #aeaeb2;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .stop-box {
+      background: rgba(255, 255, 255, 0.06);
+      border-left: 4px solid #ff453a;
+      padding: 18px 20px;
+      border-radius: 8px;
+      text-align: left;
+      font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .countdown {
+      margin-top: 10px;
+      color: #ff9f0a;
+      font-weight: 600;
+    }
+
+    .btn-escape {
+      display: inline-block;
+      background: #f5f5f7;
+      color: #1c1c1e;
+      text-decoration: none;
+      font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px 22px;
+      border-radius: 8px;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .btn-escape:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    /* Apple Toll Dialog Style (for actual macOS users) */
+    .mac-dialog {
+      max-width: 440px;
+      width: 100%;
+      background: #2c2c2e;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      padding: 30px 26px;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      display: none;
+    }
+
+    .apple-badge {
+      font-size: 44px;
+      margin-bottom: 14px;
+    }
+
+    .mac-dialog h1 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .mac-dialog p {
+      font-size: 15px;
+      color: #d1d1d6;
+      line-height: 1.55;
+      margin-bottom: 24px;
+    }
+
+    .btn-mac-close {
+      width: 100%;
+      background: #0a84ff;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .btn-mac-close:hover {
+      background: #409cff;
+    }
+
+    .fallback-note {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #ff9f0a;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen 1: Kernel Panic for Linux & Windows -->
+  <div id="panicScreen" class="panic-container">
+    <div class="power-icon">⏻</div>
+    <h1 class="panic-title">You need to restart your computer.</h1>
+    <p class="panic-sub">An unauthorized non-Apple operating system wandered into Only macOS Club.</p>
+
+    <div class="stop-box">
+      <div id="stopCode">Stop code: ERROR 0x0000000MAC: Go Back To /! or im transfering you to MacOS 26!</div>
+      <div class="countdown" id="countdownText">Redirecting to macOS 26 in 5s...</div>
+    </div>
+
+    <a id="escapeBtn" href="../" class="btn-escape">- Panic! Go Back To /</a>
+  </div>
+
+  <!-- Screen 2: Toll Booth for macOS Users -->
+  <div id="macScreen" class="mac-dialog">
+    <div class="apple-badge"></div>
+    <h1>macOS Detected!</h1>
+    <p>
+      To enter <strong>Only macOS Club</strong>, please insert a <strong>$999 Pro Stand</strong> or buy a <strong>$899 32GB RAM Upgrade</strong>.
+    </p>
+    <button id="closeTabBtn" class="btn-mac-close">No Thanks, Take me to / (MacOS Root)</button>
+    <div id="fallbackNote" class="fallback-note">
+      Safari/Chrome blocked automatic tab closing — press Cmd + W to return to Finder!
+    </div>
+  </div>
+
+  <script>
+    const ua = navigator.userAgent || "";
+    const platform = navigator.platform || "";
+
+    const isMac = /Mac|iPhone|iPad|iPod/i.test(platform) || /Macintosh|Mac OS X/i.test(ua);
+    const isWindows = /Win/i.test(platform) || /Windows/i.test(ua);
+
+    const panicScreen = document.getElementById("panicScreen");
+    const macScreen = document.getElementById("macScreen");
+    const stopCode = document.getElementById("stopCode");
+    const countdownText = document.getElementById("countdownText");
+    const escapeBtn = document.getElementById("escapeBtn");
+
+    if (isMac) {
+      // Show the $999 Pro Stand / $899 RAM toll booth for Mac users
+      macScreen.style.display = "block";
+
+      document.getElementById("closeTabBtn").addEventListener("click", () => {
+        window.close();
+        // Fallback if browser security prevents closing a user-opened tab
+        setTimeout(() => {
+          document.getElementById("fallbackNote").style.display = "block";
+        }, 150);
+      });
+    } else {
+      // Show Kernel Panic for Windows and Linux users
+      panicScreen.style.display = "block";
+
+      if (isWindows) {
+        stopCode.textContent = "Stop code: ERROR 0x0000000MAC: Go Back To C:\\! or im transfering you to MacOS 26!";
+        escapeBtn.style.display = "none";
+      } else {
+        stopCode.textContent = "Stop code: ERROR 0x0000000MAC: Go Back To /! or im transfering you to MacOS 26!";
+      }
+
+      let seconds = 5;
+      const timer = setInterval(() => {
+        seconds--;
+        if (seconds > 0) {
+          countdownText.textContent = `Redirecting to macOS 26 in ${seconds}s...`;
+        } else {
+          clearInterval(timer);
+          countdownText.textContent = "Transferring to macOS 26...";
+          window.location.href = "https://apple.com";
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
