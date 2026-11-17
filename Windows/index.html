@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ONLY-WINDOWS-CLUB</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #0078d7; /* Classic Windows 10/11 BSOD Blue */
+      color: #ffffff;
+      font-family: "Segoe UI", Consolas, monospace;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .bsod-box {
+      max-width: 720px;
+      width: 100%;
+    }
+    .sad-face {
+      font-size: 6rem;
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+    .stop-code {
+      font-family: Consolas, monospace;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 1rem;
+      border-left: 4px solid #fff;
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+    .btn {
+      display: inline-block;
+      background: #ffffff;
+      color: #0078d7;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+      transition: transform 0.1s;
+    }
+    .btn:hover { transform: scale(1.03); }
+    .fake-win-ui {
+      background: #1e1e1e;
+      border: 1px solid #3c3c3c;
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      font-family: Consolas, monospace;
+    }
+    .badge {
+      display: inline-block;
+      background: #0078d7;
+      padding: 4px 12px;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="bsod-box" id="screen"></div>
+
+  <script>
+    const ua = navigator.userAgent || "";
+    const isDesktopLinux = ua.includes("Linux") && !ua.includes("Android");
+    const screen = document.getElementById("screen");
+
+    if (isDesktopLinux) {
+      // 🐧 PENGUIN DETECTED IN /Windows/?/
+      let seconds = 5;
+      screen.innerHTML = `
+        <div class="sad-face">:(</div>
+        <h1>A penguin wandered into the wrong neighborhood.</h1>
+        <div class="stop-code">
+          Stop code: <strong>ERROR 0X0000000WIN: Go Back To /! or im transfering you to windows!</strong><br><br>
+          Redirecting to Windows 11 ISO in <span id="timer">${seconds}</span>s...
+        </div>
+        <a href="../" class="btn">⬅ Panic! Go Back To /</a>
+      `;
+
+      const interval = setInterval(() => {
+        seconds--;
+        const timerEl = document.getElementById("timer");
+        if (timerEl) timerEl.textContent = seconds;
+        if (seconds <= 0) {
+          clearInterval(interval);
+          window.location.href = "https://microsoft.com";
+        }
+      }, 1000);
+
+    } else {
+      // 🪟 WINDOWS / NON-LINUX USER TRAP
+      screen.innerHTML = `
+        <div class="fake-win-ui">
+          <div class="badge">ONLY-WINDOWS-CLUB • ACCESS GRANTED</div>
+          <h2 style="margin-bottom: 0.75rem;">Welcome to #windows-club!</h2>
+          <p style="color: #aaa;">Checking for forced Windows Updates (0% complete)...</p>
+        </div>
+      `;
+
+      setTimeout(() => {
+        screen.innerHTML = `
+          <div class="sad-face">🐧</div>
+          <h1>Just kidding. Friends don't let friends stay on Windows.</h1>
+          <div class="stop-code">
+            Stop code: <strong>ERROR 0x000000TUX: Initiating Linux rescue...</strong>
+          </div>
+        `;
+        setTimeout(() => {
+          window.location.href = "https://ubuntu.com";
+        }, 2500);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
